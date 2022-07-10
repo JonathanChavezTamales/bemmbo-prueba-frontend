@@ -5,15 +5,13 @@ import {MOCK_invoices} from  "../mocks/invoices"
 
 import { useEffect, useState } from "react";
 
-export default function InvoiceList(){
+export default function InvoiceList({selectedInvoice, setSelectedInvoice}){
 
     const [invoices, setInvoices] = useState([]);
-    const [selectedInvoice, setSelectedInvoice] = useState();
 
     useEffect(() => {
         setInvoices(MOCK_invoices)
     }, [])
-
 
     return(
         <RadioGroup value={selectedInvoice} onChange={setSelectedInvoice}>

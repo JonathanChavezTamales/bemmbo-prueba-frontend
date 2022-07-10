@@ -6,6 +6,8 @@ import InvoiceList from './components/InvoiceList';
 function App() {
 
   const [modalOpen, setModalOpen] = useState(false)
+  const [selectedInvoice, setSelectedInvoice] = useState()
+  const [selectedCreditNote, setSelectedCreditNote] = useState()
 
   return (
     <div className="w-full px-4 py-4 mb-10">
@@ -13,11 +15,11 @@ function App() {
       <div className="mx-auto w-full max-w-md space-y-10">
        <div>
         <h2 className="text-center font-medium text-lg mb-4">Selecciona una factura</h2>
-        <InvoiceList/>
+        <InvoiceList selectedInvoice={selectedInvoice} setSelectedInvoice={setSelectedInvoice}/>
        </div>
        <div>
         <h2 className="text-center font-medium text-lg mb-4">Selecciona una nota de crédito</h2>
-        <CreditNoteList/>
+        <CreditNoteList selectedCreditNote={selectedCreditNote} setSelectedCreditNote={setSelectedCreditNote} selectedInvoiceId={selectedInvoice && selectedInvoice.id}/>
        </div>
        <div className='text-center'>
         <button className='bg-violet-600 p-4 text-white font-medium rounded-md' onClick={() => setModalOpen(true)}>Asignar</button>
@@ -56,6 +58,12 @@ function App() {
                   >
                     Nota de crédito asignada correctamente
                   </Dialog.Title>
+                  <div className="mt-2">
+                    <p className="text-sm text-gray-500">
+                      Factura: {selectedInvoice && selectedInvoice.id}
+                      Nota de crédito: {}
+                    </p>
+                  </div>
                   <div className="mt-4">
                     <button
                       type="button"
@@ -74,6 +82,7 @@ function App() {
 
     </div>
   );
+
 }
 
 export default App;

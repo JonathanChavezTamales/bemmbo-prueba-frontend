@@ -5,10 +5,9 @@ import {MOCK_invoices} from  "../mocks/invoices"
 
 import { useEffect, useState } from "react";
 
-export default function CreditNoteList(){
+export default function CreditNoteList({selectedCreditNote, setSelectedCreditNote, selectedInvoiceId}){
 
     const [creditNotes, setCreditNotes] = useState([]);
-    const [selectedCreditNote, setSelectedCreditNote] = useState();
 
 
     useEffect(() => {
@@ -16,16 +15,18 @@ export default function CreditNoteList(){
     }, [])
 
 
-    return(<RadioGroup value={selectedCreditNote} onChange={setSelectedCreditNote}>
+    return(<>
+      {selectedInvoiceId && <RadioGroup value={selectedCreditNote} onChange={setSelectedCreditNote}>
         <div className="space-y-2">
-        {creditNotes.filter((creditNote) => creditNote.type === 'credit_note')
+        {creditNotes.filter((creditNote) => creditNote.type === 'credit_note' && selectedInvoiceId === creditNote.reference)
           .map((creditNote) => 
               <CreditNote
               creditNote={creditNote}
               />)
           }
         </div>
-      </RadioGroup>
+      </RadioGroup>}
+    </>
     )
 
 }
