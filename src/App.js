@@ -52,7 +52,10 @@ function App() {
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-center align-middle shadow-xl transition-all">
-                  <Dialog.Title
+                  {
+                    selectedCreditNote && selectedInvoice ? 
+                    <>
+                    <Dialog.Title
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900"
                   >
@@ -60,8 +63,11 @@ function App() {
                   </Dialog.Title>
                   <div className="mt-2">
                     <p className="text-sm text-gray-500">
-                      Factura: {selectedInvoice && selectedInvoice.id}
-                      Nota de crédito: {}
+                      <div>Factura: {selectedInvoice && selectedInvoice.id}</div>
+                      <div>Nota de crédito: {selectedCreditNote && selectedCreditNote.id}</div>
+                      <div className='p-2 text-gray-800'>
+                        Nuevo monto por pagar: ${selectedInvoice.amount - selectedCreditNote.amount}
+                      </div>
                     </p>
                   </div>
                   <div className="mt-4">
@@ -73,6 +79,31 @@ function App() {
                       Seguir asignando
                     </button>
                   </div>
+                    </>
+                    :
+                    <>
+                     <Dialog.Title
+                    as="h3"
+                    className="text-lg font-medium leading-6 text-gray-900"
+                  >
+                    Hubo un error
+                  </Dialog.Title>
+                  <div className="mt-2">
+                    <p className="text-sm text-gray-500">
+                    Asegúrate que hayas seleccionado al menos una factura y una nota de crédito.
+                    </p>
+                  </div>
+                  <div className="mt-4">
+                    <button
+                      type="button"
+                      className="rounded-md border border-transparent bg-violet-500 px-4 py-2 text-sm font-medium text-white hover:bg-violet-600 focus:outline-none"
+                      onClick={() => setModalOpen(false)}
+                    >
+                      Ok
+                    </button>
+                  </div>
+                    </>
+                  }
                 </Dialog.Panel>
               </Transition.Child>
             </div>
